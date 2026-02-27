@@ -10,6 +10,7 @@ const links = [
 ];
 ---
 
+<div class="nav__overlay" id="nav-overlay"></div>
 <nav class="nav" id="nav">
   <div class="nav__inner container">
     <a href={import.meta.env.BASE_URL} class="nav__logo">
@@ -22,7 +23,6 @@ const links = [
       <span class="nav__toggle-bar"></span>
     </button>
 
-    <div class="nav__overlay" id="nav-overlay"></div>
     <ul class="nav__links" role="list" id="nav-menu">
       {links.map((link) => (
         <li>
