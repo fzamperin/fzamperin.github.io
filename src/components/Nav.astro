@@ -22,6 +22,7 @@ const links = [
       <span class="nav__toggle-bar"></span>
     </button>
 
+    <div class="nav__overlay" id="nav-overlay"></div>
     <ul class="nav__links" role="list" id="nav-menu">
       {links.map((link) => (
         <li>
@@ -119,44 +120,51 @@ const links = [
     transition: transform 0.3s, opacity 0.3s;
   }
 
+  .nav__overlay {
+    display: none;
+  }
+
   @media (max-width: 768px) {
     .nav__toggle {
       display: flex;
     }
 
-    .nav__links {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 70%;
-      max-width: 300px;
-      height: 100vh;
-      flex-direction: column;
-      gap: 0;
-      background: var(--surface);
-      padding: 5rem 2rem 2rem;
-      border-left: 1px solid var(--border);
-      transition: right 0.3s ease;
-    }
-
-    .nav__links::before {
-      content: '';
+    .nav__overlay {
+      display: block;
       position: fixed;
       inset: 0;
       background: rgba(10, 10, 15, 0.6);
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s, visibility 0.3s;
-      z-index: -1;
+      z-index: 98;
+    }
+
+    .nav__overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .nav__links {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 70%;
+      max-width: 300px;
+      height: 100dvh;
+      height: 100vh; /* fallback */
+      flex-direction: column;
+      gap: 0;
+      background: var(--surface);
+      padding: 5rem 2rem 2rem;
+      border-left: 1px solid var(--border);
+      z-index: 99;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
     }
 
     .nav__links.open {
-      right: 0;
-    }
-
-    .nav__links.open::before {
-      opacity: 1;
-      visibility: visible;
+      transform: translateX(0);
     }
 
     .nav__link {
@@ -171,16 +179,19 @@ const links = [
 <script>
   const toggle = document.querySelector('.nav__toggle');
   const links = document.querySelector('.nav__links');
+  const overlay = document.querySelector('.nav__overlay');
   const navLinks = document.querySelectorAll('.nav__link');
 
   function closeMenu() {
     links?.classList.remove('open');
+    overlay?.classList.remove('open');
     toggle?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }
 
   function openMenu() {
     links?.classList.add('open');
+    overlay?.classList.add('open');
     toggle?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
     const firstLink = links?.querySelector('.nav__link');
@@ -191,6 +202,9 @@ const links = [
     const isOpen = links?.classList.contains('open');
     isOpen ? closeMenu() : openMenu();
   });
+
+  // Close on backdrop tap
+  overlay?.addEventListener('click', closeMenu);
 
   // Close on Escape key
   document.addEventListener('keydown', (e) => {

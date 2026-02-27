@@ -133,13 +133,13 @@ const roles = [
     left: 0;
     width: 2px;
     background: var(--accent);
-    box-shadow:
-      0 0 8px var(--accent),
-      0 0 20px var(--accent-dim);
+    box-shadow: 0 0 8px var(--accent);
     opacity: 0;
     pointer-events: none;
     z-index: 2;
     border-radius: 1px;
+    will-change: transform;
+    transform: translateX(0);
   }
 
   .hero__scanline.active {
@@ -228,10 +228,11 @@ const roles = [
    */
 
   const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*<>{}[]|/\\~';
-  const SCRAMBLE_FPS = 50;           // ms between glyph cycles during scramble
-  const RESOLVE_STAGGER = 60;        // ms between each char resolving
-  const HOLD_DURATION = 2000;        // ms to hold the resolved title before next
-  const FLASH_DURATION = 150;        // ms for the per-char green flash on resolve
+  const isMobile = window.innerWidth < 768;
+  const SCRAMBLE_FPS = isMobile ? 80 : 50;     // slower on mobile
+  const RESOLVE_STAGGER = isMobile ? 45 : 60;  // faster resolve on mobile
+  const HOLD_DURATION = 2000;
+  const FLASH_DURATION = 150;
 
   const el = document.getElementById('decode-role');
   const scanline = document.getElementById('decode-scanline');
@@ -291,19 +292,29 @@ const roles = [
 
       // Activate scanline
       scanline.classList.add('active');
-      scanline.style.left = '0px';
+      scanline.style.transform = 'translateX(0)';
 
-      // Scramble interval — randomize all unresolved chars
-      const scrambleInterval = setInterval(() => {
-        chars.forEach((c) => {
-          if (c.classList.contains('scrambling')) {
-            const t = c.dataset.target;
-            c.textContent = t === ' '
-              ? '\u00A0'
-              : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+      // Scramble loop using requestAnimationFrame (smoother on mobile)
+      let scrambleActive = true;
+      let lastScramble = 0;
+
+      function scrambleLoop(timestamp) {
+        if (!scrambleActive) return;
+        if (timestamp - lastScramble >= SCRAMBLE_FPS) {
+          lastScramble = timestamp;
+          for (let i = 0; i < chars.length; i++) {
+            const c = chars[i];
+            if (c.classList.contains('scrambling')) {
+              const t = c.dataset.target;
+              c.textContent = t === ' '
+                ? '\u00A0'
+                : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+            }
           }
-        });
-      }, SCRAMBLE_FPS);
+        }
+        requestAnimationFrame(scrambleLoop);
+      }
+      requestAnimationFrame(scrambleLoop);
 
       // Resolve chars one-by-one left-to-right
       let resolved = 0;
@@ -311,7 +322,7 @@ const roles = [
       function resolveNext() {
         if (resolved >= targetLen) {
           // All done
-          clearInterval(scrambleInterval);
+          scrambleActive = false;
           scanline.classList.remove('active');
           cursor.classList.remove('decoding');
 
@@ -332,10 +343,11 @@ const roles = [
         c.classList.add('resolved', 'flash');
         c.textContent = t === ' ' ? '\u00A0' : t;
 
-        // Move scanline to this char's position
+        // Move scanline to this char's position (use transform for GPU compositing)
         const charRect = c.getBoundingClientRect();
         const parentRect = el.parentElement.getBoundingClientRect();
-        scanline.style.left = `${charRect.right - parentRect.left}px`;
+        const offset = charRect.right - parentRect.left;
+        scanline.style.transform = `translateX(${offset}px)`;
 
         // Remove flash after brief delay
         setTimeout(() => c.classList.remove('flash'), FLASH_DURATION);
