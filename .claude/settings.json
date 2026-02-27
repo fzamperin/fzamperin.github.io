@@ -4,5 +4,23 @@
       "type": "http",
       "url": "https://mcp.docs.astro.build/mcp"
     }
+  },
+  "agents": {
+    "ui-ux-designer": {
+      "description": "Expert UI/UX design critic providing research-backed, opinionated feedback on interfaces. Use when reviewing designs, evaluating usability, or getting aesthetic direction.",
+      "model": "opus"
+    },
+    "frontend-developer": {
+      "description": "Senior frontend developer for building components, pages, and full applications. Use when implementing UI features, creating components, or integrating frontend code.",
+      "model": "sonnet"
+    }
+  },
+  "skills": {
+    "frontend-design": {
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use when building web components, pages, or styling/beautifying any web UI."
+    },
+    "senior-frontend": {
+      "description": "Comprehensive frontend development with ReactJS, NextJS, TypeScript, Tailwind CSS. Use for component scaffolding, performance optimization, bundle analysis, and UI best practices."
+    }
   }
 }
