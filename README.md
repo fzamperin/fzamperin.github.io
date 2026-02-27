@@ -54,4 +54,4 @@ Pushes to `main` automatically trigger the GitHub Actions workflow at `.github/w
 
 ## License
 
-MIT
+[MIT](LICENSE)
