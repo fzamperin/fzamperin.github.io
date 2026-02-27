@@ -1,0 +1,107 @@
+---
+import education from '../data/education.json';
+---
+
+<section id="education" class="section">
+  <div class="container">
+    <h2 class="section__title fade-up">
+      <span class="accent-text">#</span> Education
+    </h2>
+
+    <div class="edu-grid">
+      {education.map((edu, i) => (
+        <div class="edu-card fade-up" style={`animation-delay: ${i * 0.1}s`}>
+          <div class="edu-card__header">
+            <h3 class="edu-card__degree">{edu.degree}</h3>
+            <span class="edu-card__period">{edu.period}</span>
+          </div>
+          <p class="edu-card__institution">
+            {edu.institution} <span class="edu-card__location">/ {edu.location}</span>
+          </p>
+          {edu.details && <p class="edu-card__details">{edu.details}</p>}
+          {edu.url && (
+            <a href={edu.url} target="_blank" rel="noopener noreferrer" class="edu-card__link">
+              View credential &rarr;
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section__title {
+    font-family: var(--font-mono);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: var(--text);
+    margin-bottom: 3rem;
+  }
+
+  .edu-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .edu-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--accent-glow);
+  }
+
+  .edu-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .edu-card__degree {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+
+  .edu-card__period {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+  }
+
+  .edu-card__institution {
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-card__location {
+    font-size: 0.85rem;
+  }
+
+  .edu-card__details {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .edu-card__link {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-decoration: none;
+    margin-top: 0.5rem;
+    transition: opacity 0.2s;
+  }
+
+  .edu-card__link:hover {
+    opacity: 0.7;
+  }
+</style>

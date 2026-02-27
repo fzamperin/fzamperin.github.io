@@ -1,0 +1,77 @@
+---
+import skills from '../data/skills.json';
+
+const categories = Object.entries(skills) as [string, string[]][];
+---
+
+<section id="skills" class="section">
+  <div class="container">
+    <h2 class="section__title fade-up">
+      <span class="accent-text">#</span> Skills
+    </h2>
+
+    <div class="skills-grid">
+      {categories.map(([category, items], i) => (
+        <div class="skills-group fade-up" style={`animation-delay: ${i * 0.1}s`}>
+          <h3 class="skills-group__title">{category}</h3>
+          <div class="skills-group__tags">
+            {items.map((skill) => (
+              <span class="skill-tag">{skill}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section__title {
+    font-family: var(--font-mono);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: var(--text);
+    margin-bottom: 3rem;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .skills-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .skills-group__title {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .skills-group__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text);
+    background: var(--surface-light);
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .skill-tag:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+</style>

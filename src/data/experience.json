@@ -1,0 +1,93 @@
+[
+  {
+    "company": "2Mundos - Software House",
+    "role": "Senior DevOps/Infra Consultant",
+    "period": "Feb 2025 - Present",
+    "location": "São Paulo, Brazil",
+    "description": "Architected ArgoCD structure for new deployments for customers, designing project structures to facilitate automated deployments in Kubernetes environments.",
+    "highlights": [
+      "Spin up infrastructure with AWS",
+      "Create GitLab CI manifests and CI/CD pipelines",
+      "ArgoCD deployments and administration",
+      "Terraform templates for infrastructure as code",
+      "Kubernetes cluster administration",
+      "Dockerfiles and compilation support for multiple environments"
+    ],
+    "tech": ["AWS", "GitLab CI", "ArgoCD", "Terraform", "Kubernetes", "Docker"]
+  },
+  {
+    "company": "Blackthorn.io - Salesforce Apps",
+    "role": "Senior Full Stack Engineer",
+    "period": "Aug 2023 - Present",
+    "location": "Remote",
+    "description": "Development and improvement of the events project, the most used of Blackthorn's Salesforce apps, handling 100k users concurrently with a dedicated Redis cache layer and a synchronization data system with Salesforce.",
+    "highlights": [
+      "Helping product team to architect new solutions and give estimates of tasks",
+      "Working with Angular + Node.js and AWS",
+      "Development of CI/CD pipelines using GitHub Actions",
+      "Coaching junior and mid-level developers"
+    ],
+    "tech": ["Angular", "Node.js", "TypeScript", "AWS", "Redis", "Salesforce", "GitHub Actions"]
+  },
+  {
+    "company": "Suno - Investments Industry",
+    "role": "Software Specialist",
+    "period": "Jun 2021 - May 2023",
+    "location": "São Paulo, Brazil",
+    "description": "Responsible for launching one of the most important projects for the company — a Node.js API with React dashboard integrating with multiple APIs for stock market data. Managed ~100k assets in the database using HTTP, Crons, and WebSockets to collect historical, price, and indicators data. The API handled 100k+ users and could scale.",
+    "highlights": [
+      "Product discovery with Product Managers",
+      "Monorepo maintainer using NX and Lerna",
+      "DevOps with GitLab CI, AWS, and Kubernetes templates",
+      "Integrated and developed features using microservices and NestJS",
+      "Coaching junior and mid-level developers"
+    ],
+    "tech": ["Node.js", "NestJS", "React", "TypeScript", "NX", "GitLab CI", "AWS", "Kubernetes", "WebSockets"]
+  },
+  {
+    "company": "Ingresse - Events Ticket Industry",
+    "role": "Tech Manager",
+    "period": "Feb 2022 - Aug 2022",
+    "location": "São Paulo, Brazil",
+    "description": "Reduced AWS infrastructure cost by ~50% without losing quality and scalability. Handled traffic for ticket sales openings — events and parties sold out almost instantly with 300k users on new sales, including tickets for NYE cruises and concerts like Anitta.",
+    "highlights": [
+      "Managed microservices infrastructure using Terraform",
+      "AWS infrastructure cost optimization",
+      "Led team rites: 1x1s, retrospectives, and reviews",
+      "Right arm of the CTO, receiving high-level demands",
+      "Coaching junior and mid-level developers"
+    ],
+    "tech": ["AWS", "Terraform", "Docker", "Node.js", "Microservices"]
+  },
+  {
+    "company": "Beliive",
+    "role": "Senior Full Stack Engineer",
+    "period": "Oct 2018 - Mar 2021",
+    "location": "Remote",
+    "description": "Fast-learned Python to help with backend tasks starting with zero experience. Responsible for creating the mobile app from scratch using Ionic Cordova.",
+    "highlights": [
+      "Python development using Flask and SQL databases",
+      "Vue.js SPA application development",
+      "Pipelines and infrastructure using Bitbucket and Azure",
+      "Mobile application development from scratch",
+      "Working in an agile environment"
+    ],
+    "tech": ["Python", "Flask", "Vue.js", "Ionic", "Cordova", "Bitbucket", "Azure", "SQL"]
+  },
+  {
+    "company": "OniQ Tecnologia",
+    "role": "Founder / Tech Manager",
+    "period": "Mar 2016 - May 2021",
+    "location": "São Paulo, Brazil",
+    "description": "Shipped over 15 projects, mostly mobile and web apps. Notable projects include a mobile video streaming app with 100k+ users for a beauty/makeup course for a 1M influencer, and a wedding real-time event using Firebase with ~10k participants.",
+    "highlights": [
+      "Client requirements gathering and progress reporting",
+      "AWS infrastructure for all projects",
+      "Led team rites: 1x1s, retrospectives, and reviews",
+      "Resource provisioning and budget management for development team",
+      "Implementing new PoCs to improve development processes",
+      "Agile project management"
+    ],
+    "tech": ["Express", "NestJS", "Python", "Ionic", "React Native", "PostgreSQL", "MongoDB", "AWS", "Docker", "Firebase"]
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "institution": "Universidade Federal de Mato Grosso (UFMT)",
+    "degree": "BSc in Computer Science",
+    "period": "Graduated 2014",
+    "location": "Mato Grosso, Brazil",
+    "details": "",
+    "url": ""
+  },
+  {
+    "institution": "The Linux Foundation",
+    "degree": "Certified Kubernetes Application Developer (CKAD)",
+    "period": "2024",
+    "location": "Online",
+    "details": "",
+    "url": "https://www.credly.com/badges/becdf2a1-9092-48c1-b447-b4070f2f084b"
+  },
+  {
+    "institution": "Amazon Web Services",
+    "degree": "AWS Certified Solutions Architect - Professional (SAP-C02)",
+    "period": "2024",
+    "location": "Online",
+    "details": "",
+    "url": "https://www.credly.com/badges/212cba42-b5c5-4343-9d03-6ed6ccb720ae"
+  },
+  {
+    "institution": "Dale Carnegie",
+    "degree": "Dale Carnegie Course in Human Relations",
+    "period": "2019",
+    "location": "São Paulo, Brazil",
+    "details": "",
+    "url": ""
+  },
+  {
+    "institution": "Oracle",
+    "degree": "Oracle Certified Associate (OCA) Java SE 7 Programmer",
+    "period": "2015",
+    "location": "Online",
+    "details": "",
+    "url": "https://www.credly.com/badges/c6fdf516-6a8b-4aeb-ba36-3540cfc3a9fb"
+  }
+]

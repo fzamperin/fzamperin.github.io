@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Blackthorn Events Platform",
+    "description": "Full-stack events platform as the most used Salesforce app at Blackthorn.io, handling 100k concurrent users with a dedicated Redis cache layer and Salesforce data synchronization.",
+    "tech": ["Angular", "Node.js", "Redis", "AWS", "Salesforce"],
+    "url": "https://blackthorn.io/salesforce-event-management-and-registration/",
+    "repo": null,
+    "featured": true
+  },
+  {
+    "name": "Suno Stock Market API",
+    "description": "Node.js API with React dashboard integrating with multiple APIs for real-time stock market data. Managed ~100k assets using HTTP, Crons, and WebSockets, serving 100k+ users.",
+    "tech": ["Node.js", "NestJS", "React", "WebSockets", "PostgreSQL"],
+    "url": "https://www.suno.com.br/research/",
+    "repo": null,
+    "featured": true
+  },
+  {
+    "name": "Video Streaming Mobile App",
+    "description": "Mobile video streaming app built for a beauty and makeup course for a 1M+ follower influencer. Shipped through OniQ Tecnologia, reaching 100k+ users.",
+    "tech": ["Ionic", "React Native", "Node.js", "AWS"],
+    "url": null,
+    "repo": null,
+    "featured": true
+  },
+  {
+    "name": "Eats For You",
+    "description": "A homemade meal delivery app connecting home cooks looking for extra income with people who want affordable, quality home-cooked food for lunch. Initially serving the Alphaville region in São Paulo, Brazil.",
+    "tech": ["Ionic", "Angular", "Node.js", "MariaDB", "AWS"],
+    "url": "https://www.eatsforyou.com.br/",
+    "repo": null,
+    "featured": true
+  }
+]

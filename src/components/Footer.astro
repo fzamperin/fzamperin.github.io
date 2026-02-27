@@ -1,0 +1,102 @@
+---
+import social from '../data/social.json';
+import SocialIcon from './SocialIcon.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__links">
+      {social.map((s) => (
+        <a
+          href={s.url}
+          target={s.url.startsWith('mailto:') ? undefined : '_blank'}
+          rel={s.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+          class="footer__link-btn"
+          aria-label={s.platform}
+        >
+          <SocialIcon icon={s.icon} size="15" />
+          <span>{s.platform}</span>
+        </a>
+      ))}
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">
+        <span class="accent-text">&copy;</span> {year} Fernando Penna
+      </p>
+      <p class="footer__built">
+        Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="footer__text-link">Astro</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 0 2rem;
+  }
+
+  .footer__links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer__link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--accent);
+    background: transparent;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+
+  .footer__link-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+    box-shadow: var(--accent-glow);
+  }
+
+  .footer__link-btn :global(svg) {
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .footer__link-btn:hover :global(svg) {
+    opacity: 1;
+  }
+
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer__copy,
+  .footer__built {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  .footer__text-link {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .footer__text-link:hover {
+    text-decoration: underline;
+  }
+</style>

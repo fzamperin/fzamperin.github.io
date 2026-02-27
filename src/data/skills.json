@@ -1,0 +1,41 @@
+{
+  "languages": [
+    "Node.js / TypeScript",
+    "Python",
+    "SQL",
+    "Java EE",
+    "HTML / CSS"
+  ],
+  "frontend": [
+    "React",
+    "Vue.js",
+    "Angular",
+    "Ionic / Capacitor",
+    "React Native"
+  ],
+  "cloud & devops": [
+    "AWS",
+    "Docker",
+    "GitLab CI",
+    "GitHub Actions",
+    "Kubernetes",
+    "Terraform",
+    "ArgoCD"
+  ],
+  "databases": ["PostgreSQL", "MariaDB", "MongoDB", "Redis", "Firebase"],
+  "leadership": [
+    "Team Leadership",
+    "Coaching Developers",
+    "Mentoring",
+    "Strategic Planning",
+    "Agile / Scrum"
+  ],
+  "other": [
+    "Microservices",
+    "NestJS",
+    "Express",
+    "Flask / Django",
+    "Product Discovery",
+    "Monorepo (NX / Lerna)"
+  ]
+}

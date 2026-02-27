@@ -1,0 +1,375 @@
+---
+import social from '../data/social.json';
+import SocialIcon from './SocialIcon.astro';
+
+const roles = [
+  'Software Engineer',
+  'Cloud Architect',
+  'DevOps',
+  'Tech Manager',
+];
+---
+
+<section id="about" class="hero section">
+  <div class="container">
+    <div class="hero__content fade-up">
+      <p class="hero__greeting">
+        <span class="accent-text">$</span> ssh fernando@world
+      </p>
+      <h1 class="hero__name">
+        Fernando<br /><span class="accent-text">Penna</span>
+      </h1>
+      <div class="hero__tagline">
+        <span class="hero__cursor">&gt;</span>
+        <span class="hero__role-wrap">
+          <span class="hero__role" id="decode-role" aria-label={roles[0]}></span>
+          <span class="hero__scanline" id="decode-scanline"></span>
+        </span>
+        <span class="hero__blink" id="decode-cursor">_</span>
+      </div>
+      <p class="hero__bio">
+        Results-driven Tech Manager and Software Engineer with extensive expertise in
+        Node.js, AWS, DevOps, and Full-Stack Development. Proven track record of
+        agile project management, team leadership, and delivering high-quality solutions at scale.
+      </p>
+      <div class="hero__actions">
+        {social.map((s) => (
+          <a
+            href={s.url}
+            target={s.url.startsWith('mailto:') ? undefined : '_blank'}
+            rel={s.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+            class="hero__link"
+            aria-label={s.platform}
+          >
+            <SocialIcon icon={s.icon} size="16" />
+            <span>{s.platform}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 5rem;
+  }
+
+  .hero__greeting {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hero__name {
+    font-family: var(--font-mono);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero__tagline {
+    font-family: var(--font-mono);
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero__cursor {
+    color: var(--accent);
+  }
+
+  /* ── Role decoder container ── */
+  .hero__role-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero__role {
+    display: inline;
+    white-space: nowrap;
+  }
+
+  /* Individual character spans injected by JS */
+  .hero__role :global(.char) {
+    display: inline-block;
+    transition: color 0.08s ease;
+    color: var(--text-dim);
+    position: relative;
+  }
+
+  /* While scrambling, characters cycle through random glyphs */
+  .hero__role :global(.char.scrambling) {
+    color: var(--accent);
+    text-shadow: 0 0 8px var(--accent-dim);
+  }
+
+  /* Resolved character — subtle lock-in flash */
+  .hero__role :global(.char.resolved) {
+    color: var(--text-dim);
+    text-shadow: none;
+  }
+
+  .hero__role :global(.char.resolved.flash) {
+    color: var(--accent);
+    text-shadow: 0 0 12px var(--accent);
+  }
+
+  /* ── Scanline sweep ── */
+  .hero__scanline {
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    left: 0;
+    width: 2px;
+    background: var(--accent);
+    box-shadow:
+      0 0 8px var(--accent),
+      0 0 20px var(--accent-dim);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+    border-radius: 1px;
+  }
+
+  .hero__scanline.active {
+    opacity: 1;
+  }
+
+  /* ── Blinking cursor ── */
+  .hero__blink {
+    color: var(--accent);
+    animation: blink 1s step-end infinite;
+  }
+
+  .hero__blink.decoding {
+    animation: none;
+    opacity: 1;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* ── Glow burst on the whole role when decode completes ── */
+  .hero__role-wrap.glow-burst {
+    animation: burstGlow 0.6s ease-out;
+  }
+
+  @keyframes burstGlow {
+    0%   { filter: drop-shadow(0 0 12px #39ff14aa); }
+    100% { filter: drop-shadow(0 0 0px transparent); }
+  }
+
+  .hero__bio {
+    font-size: 1.125rem;
+    color: var(--text-dim);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.6rem 1.25rem;
+    border: 1px solid var(--accent);
+    background: transparent;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+
+  .hero__link:hover {
+    background: var(--accent);
+    color: var(--bg);
+    box-shadow: var(--accent-glow);
+  }
+
+  .hero__link :global(svg) {
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .hero__link:hover :global(svg) {
+    opacity: 1;
+  }
+</style>
+
+<script define:vars={{ roles }}>
+  /**
+   * Matrix Decode — character-by-character scramble morph
+   *
+   * Instead of the cliché type/erase effect, each character rapidly cycles
+   * through random cipher glyphs before resolving left-to-right into the
+   * target string. A scanline sweeps across tracking the decode front.
+   */
+
+  const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*<>{}[]|/\\~';
+  const SCRAMBLE_FPS = 50;           // ms between glyph cycles during scramble
+  const RESOLVE_STAGGER = 60;        // ms between each char resolving
+  const HOLD_DURATION = 2000;        // ms to hold the resolved title before next
+  const FLASH_DURATION = 150;        // ms for the per-char green flash on resolve
+
+  const el = document.getElementById('decode-role');
+  const scanline = document.getElementById('decode-scanline');
+  const cursor = document.getElementById('decode-cursor');
+  if (!el || !scanline || !cursor) throw new Error('Missing decode elements');
+
+  let currentIndex = 0;
+  let prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Listen for changes to reduced motion preference
+  window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
+    prefersReducedMotion = e.matches;
+  });
+
+  /** Build the char spans for a given string */
+  function buildChars(text) {
+    el.innerHTML = '';
+    el.setAttribute('aria-label', text);
+    for (const ch of text) {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      span.dataset.target = ch;
+      el.appendChild(span);
+    }
+  }
+
+  /** Reduced-motion fallback — just swap text instantly */
+  function simpleSwap(text) {
+    el.textContent = text;
+    el.setAttribute('aria-label', text);
+  }
+
+  /** Run the decode animation from current text to target */
+  function decode(target) {
+    return new Promise((resolve) => {
+      if (prefersReducedMotion) {
+        simpleSwap(target);
+        resolve();
+        return;
+      }
+
+      // Pad current chars to target length (or trim)
+      const currentChars = Array.from(el.querySelectorAll('.char'));
+      const targetLen = target.length;
+      const currentLen = currentChars.length;
+
+      // Rebuild for the target length
+      buildChars(target);
+      const chars = Array.from(el.querySelectorAll('.char'));
+
+      // Mark all as scrambling
+      chars.forEach((c) => c.classList.add('scrambling'));
+
+      // Start cursor in decode mode (solid, no blink)
+      cursor.classList.add('decoding');
+
+      // Activate scanline
+      scanline.classList.add('active');
+      scanline.style.left = '0px';
+
+      // Scramble interval — randomize all unresolved chars
+      const scrambleInterval = setInterval(() => {
+        chars.forEach((c) => {
+          if (c.classList.contains('scrambling')) {
+            const t = c.dataset.target;
+            c.textContent = t === ' '
+              ? '\u00A0'
+              : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+          }
+        });
+      }, SCRAMBLE_FPS);
+
+      // Resolve chars one-by-one left-to-right
+      let resolved = 0;
+
+      function resolveNext() {
+        if (resolved >= targetLen) {
+          // All done
+          clearInterval(scrambleInterval);
+          scanline.classList.remove('active');
+          cursor.classList.remove('decoding');
+
+          // Trigger glow burst on wrapper
+          const wrap = el.parentElement;
+          wrap.classList.add('glow-burst');
+          setTimeout(() => wrap.classList.remove('glow-burst'), 600);
+
+          resolve();
+          return;
+        }
+
+        const c = chars[resolved];
+        const t = c.dataset.target;
+
+        // Stop scrambling, set final char
+        c.classList.remove('scrambling');
+        c.classList.add('resolved', 'flash');
+        c.textContent = t === ' ' ? '\u00A0' : t;
+
+        // Move scanline to this char's position
+        const charRect = c.getBoundingClientRect();
+        const parentRect = el.parentElement.getBoundingClientRect();
+        scanline.style.left = `${charRect.right - parentRect.left}px`;
+
+        // Remove flash after brief delay
+        setTimeout(() => c.classList.remove('flash'), FLASH_DURATION);
+
+        resolved++;
+        setTimeout(resolveNext, RESOLVE_STAGGER);
+      }
+
+      // Small delay before starting resolve (let scramble run a beat)
+      setTimeout(resolveNext, 300);
+    });
+  }
+
+  /** Main loop */
+  async function loop() {
+    // Initial render
+    buildChars(roles[currentIndex]);
+    // Resolve initial text (instant, no scramble)
+    Array.from(el.querySelectorAll('.char')).forEach((c) => {
+      c.classList.add('resolved');
+    });
+
+    await sleep(HOLD_DURATION);
+
+    while (true) {
+      currentIndex = (currentIndex + 1) % roles.length;
+      await decode(roles[currentIndex]);
+      await sleep(HOLD_DURATION);
+    }
+  }
+
+  function sleep(ms) {
+    return new Promise((r) => setTimeout(r, ms));
+  }
+
+  loop();
+</script>

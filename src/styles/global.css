@@ -1,0 +1,441 @@
+/* ==========================================================================
+   Global Design System — Dark & Techy CV
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Custom Properties (Design Tokens)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Palette */
+  --bg: #0a0a0f;
+  --surface: #141420;
+  --surface-light: #1e1e2e;
+  --text: #e8e8e8;
+  --text-dim: #888898;
+  --accent: #39ff14;
+  --accent-dim: #39ff1466;
+  --accent-glow: 0 0 20px #39ff1444;
+  --border: #2a2a3a;
+
+  /* Typography */
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code',
+    'Courier New', monospace;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji';
+
+  /* Spacing scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+
+  /* Layout */
+  --container-max: 1200px;
+  --container-padding: 1.5rem;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 500ms ease;
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   2. CSS Reset / Base Styles
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100dvh;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+a:hover {
+  text-shadow: var(--accent-glow);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); }
+h3 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); }
+h4 { font-size: 1.25rem; }
+
+p {
+  max-width: 65ch;
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+pre {
+  overflow-x: auto;
+  padding: var(--space-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: var(--space-lg) 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. Selection Color
+   -------------------------------------------------------------------------- */
+::selection {
+  background-color: var(--accent-dim);
+  color: var(--bg);
+}
+
+::-moz-selection {
+  background-color: var(--accent-dim);
+  color: var(--bg);
+}
+
+/* --------------------------------------------------------------------------
+   4. Focus Styles (Accessibility)
+   -------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* --------------------------------------------------------------------------
+   5. Scrollbar Styling (Webkit)
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--bg);
+}
+
+/* --------------------------------------------------------------------------
+   6. Noise Grain Texture Overlay
+   Uses a CSS-only SVG data URI for a subtle film-grain effect.
+   -------------------------------------------------------------------------- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Geometric Grid Lines Background
+   Very subtle grid pattern behind all content.
+   -------------------------------------------------------------------------- */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image:
+    linear-gradient(to right, var(--accent) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--accent) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* --------------------------------------------------------------------------
+   8. Utility Classes
+   -------------------------------------------------------------------------- */
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* Section */
+.section {
+  padding-block: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: var(--space-2xl);
+  }
+}
+
+/* Accent text */
+.accent-text {
+  color: var(--accent);
+}
+
+/* Screen-reader only (accessibility helper) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   9. Keyframe Animations
+   -------------------------------------------------------------------------- */
+
+/* Fade up — used by the .fade-up utility */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Subtle glow pulse for accent elements */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--accent-dim);
+  }
+  50% {
+    box-shadow: var(--accent-glow);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10. Scroll-Driven Fade-Up Animation
+   Uses CSS scroll-driven animations where supported (animation-timeline: view())
+   with a fallback for browsers that do not support it.
+   -------------------------------------------------------------------------- */
+
+/* --- Fallback approach: elements start hidden, animate in via class --- */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeUp 0.6s ease forwards;
+  animation-play-state: paused;
+}
+
+/* When the element is marked as visible (e.g. via IntersectionObserver adding
+   [data-visible] or .is-visible), play the animation. */
+.fade-up.is-visible,
+.fade-up[data-visible] {
+  animation-play-state: running;
+}
+
+/* Staggered delays for children — apply .fade-up-stagger to a parent
+   and .fade-up to each child. */
+.fade-up-stagger > .fade-up:nth-child(1) { animation-delay: 0ms; }
+.fade-up-stagger > .fade-up:nth-child(2) { animation-delay: 80ms; }
+.fade-up-stagger > .fade-up:nth-child(3) { animation-delay: 160ms; }
+.fade-up-stagger > .fade-up:nth-child(4) { animation-delay: 240ms; }
+.fade-up-stagger > .fade-up:nth-child(5) { animation-delay: 320ms; }
+.fade-up-stagger > .fade-up:nth-child(6) { animation-delay: 400ms; }
+.fade-up-stagger > .fade-up:nth-child(7) { animation-delay: 480ms; }
+.fade-up-stagger > .fade-up:nth-child(8) { animation-delay: 560ms; }
+
+/* --- Progressive enhancement: CSS scroll-driven animations ---
+   Browsers that support animation-timeline: view() will use native scroll-driven
+   reveals, no JS required. The @supports block overrides the fallback above. */
+@supports (animation-timeline: view()) {
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeUp ease both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 100%;
+    animation-play-state: running;
+  }
+
+  /* Stagger is handled by animation-range offsets in the scroll-driven model */
+  .fade-up-stagger > .fade-up:nth-child(1) { animation-delay: 0ms; animation-range: entry 0% entry 80%; }
+  .fade-up-stagger > .fade-up:nth-child(2) { animation-delay: 0ms; animation-range: entry 5% entry 85%; }
+  .fade-up-stagger > .fade-up:nth-child(3) { animation-delay: 0ms; animation-range: entry 10% entry 90%; }
+  .fade-up-stagger > .fade-up:nth-child(4) { animation-delay: 0ms; animation-range: entry 15% entry 95%; }
+  .fade-up-stagger > .fade-up:nth-child(5) { animation-delay: 0ms; animation-range: entry 20% entry 100%; }
+  .fade-up-stagger > .fade-up:nth-child(6) { animation-delay: 0ms; animation-range: entry 25% entry 100%; }
+  .fade-up-stagger > .fade-up:nth-child(7) { animation-delay: 0ms; animation-range: entry 30% entry 100%; }
+  .fade-up-stagger > .fade-up:nth-child(8) { animation-delay: 0ms; animation-range: entry 35% entry 100%; }
+
+  /* No need for .is-visible or [data-visible] — scroll drives the animation */
+  .fade-up.is-visible,
+  .fade-up[data-visible] {
+    animation-play-state: running;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .fade-up {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. Responsive Breakpoints (Mobile-First)
+   --------------------------------------------------------------------------
+   Usage in component styles:
+     @media (min-width: 640px)  { ... }   sm
+     @media (min-width: 768px)  { ... }   md
+     @media (min-width: 1024px) { ... }   lg
+     @media (min-width: 1280px) { ... }   xl
+
+   Global responsive adjustments below.
+   -------------------------------------------------------------------------- */
+
+/* --- Small (640px) --- */
+@media (min-width: 640px) {
+  :root {
+    --container-padding: 2rem;
+  }
+}
+
+/* --- Medium (768px) --- */
+@media (min-width: 768px) {
+  :root {
+    --container-padding: 2.5rem;
+  }
+
+  body {
+    font-size: 1.0625rem;
+  }
+}
+
+/* --- Large (1024px) --- */
+@media (min-width: 1024px) {
+  :root {
+    --container-padding: 3rem;
+  }
+}
+
+/* --- Extra-large (1280px) --- */
+@media (min-width: 1280px) {
+  :root {
+    --container-padding: 3rem;
+  }
+}

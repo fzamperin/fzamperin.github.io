@@ -1,0 +1,58 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  url?: string;
+  type?: string;
+}
+
+import social from '../data/social.json';
+
+const siteTitle = 'Fernando Penna | Senior Software Engineer & Tech Manager';
+const siteDescription = 'Results-driven Tech Manager and Senior Software Engineer with extensive expertise in Node.js, AWS, DevOps, and Full-Stack Development. Based in São Paulo, Brazil.';
+const siteUrl = import.meta.env.SITE || 'https://fzamperin.github.io';
+const basePath = import.meta.env.BASE_URL || '/fernando-cv';
+
+const {
+  title = siteTitle,
+  description = siteDescription,
+  image = `${siteUrl}${basePath}og-image.png`,
+  url = `${siteUrl}${basePath}`,
+  type = 'website',
+} = Astro.props;
+
+const canonicalUrl = new URL(url, siteUrl).href;
+
+const sameAs = social
+  .map((s: { url: string }) => s.url)
+  .filter((u: string) => u.startsWith('http'));
+
+const jsonLdString = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Fernando Penna',
+  jobTitle: 'Senior Software Engineer / Tech Manager',
+  url: canonicalUrl,
+  sameAs,
+});
+---
+
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={image} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalUrl} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+
+<script type="application/ld+json" set:html={jsonLdString}></script>

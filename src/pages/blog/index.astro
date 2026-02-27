@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const basePath = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="Blog | Fernando Penna"
+  description="Articles about software engineering, web development, and technology."
+>
+  <Nav />
+  <main class="blog-page">
+    <div class="container">
+      <header class="blog-page__header fade-up">
+        <h1 class="blog-page__title">
+          <span class="accent-text">#</span> Blog
+        </h1>
+        <p class="blog-page__desc">Thoughts on software engineering, web development, and technology.</p>
+      </header>
+
+      <div class="blog-page__list">
+        {posts.map((post, i) => (
+          <a href={`${basePath}blog/${post.id}/`} class="blog-page__item fade-up" style={`animation-delay: ${i * 0.08}s`}>
+            <div class="blog-page__item-meta">
+              <time>{post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
+              {post.data.tags && (
+                <div class="blog-page__item-tags">
+                  {post.data.tags.map((tag: string) => (
+                    <span class="tag-sm">{tag}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+            <h2 class="blog-page__item-title">{post.data.title}</h2>
+            <p class="blog-page__item-desc">{post.data.description}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="blog-page__back fade-up">
+        <a href={basePath} class="blog-page__back-link">&larr; Back to home</a>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .blog-page {
+    padding-top: 6rem;
+    min-height: 100vh;
+  }
+
+  .blog-page__header {
+    margin-bottom: 3rem;
+  }
+
+  .blog-page__title {
+    font-family: var(--font-mono);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-page__desc {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+  }
+
+  .blog-page__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .blog-page__item {
+    display: block;
+    text-decoration: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .blog-page__item:hover {
+    border-color: var(--accent);
+    box-shadow: var(--accent-glow);
+  }
+
+  .blog-page__item-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .blog-page__item-meta time {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+  }
+
+  .blog-page__item-tags {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .tag-sm {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    background: var(--surface-light);
+    padding: 0.15rem 0.5rem;
+    border: 1px solid var(--border);
+  }
+
+  .blog-page__item-title {
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-page__item-desc {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .blog-page__back {
+    margin-top: 3rem;
+    padding-bottom: 2rem;
+  }
+
+  .blog-page__back-link {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .blog-page__back-link:hover {
+    text-decoration: underline;
+  }
+</style>

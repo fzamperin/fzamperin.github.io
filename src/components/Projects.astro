@@ -1,0 +1,130 @@
+---
+import projects from '../data/projects.json';
+---
+
+<section id="projects" class="section">
+  <div class="container">
+    <h2 class="section__title fade-up">
+      <span class="accent-text">#</span> Projects
+    </h2>
+
+    <div class="projects-grid">
+      {projects.map((project, i) => (
+        <div class="project-card fade-up" style={`animation-delay: ${i * 0.1}s`}>
+          {project.featured && <span class="project-card__badge">Featured</span>}
+          <h3 class="project-card__name">{project.name}</h3>
+          <p class="project-card__desc">{project.description}</p>
+          <div class="project-card__tech">
+            {project.tech.map((t) => (
+              <span class="tag">{t}</span>
+            ))}
+          </div>
+          <div class="project-card__links">
+            {project.url && (
+              <a href={project.url} target="_blank" rel="noopener noreferrer" class="project-card__link">
+                Live &rarr;
+              </a>
+            )}
+            {project.repo && (
+              <a href={project.repo} target="_blank" rel="noopener noreferrer" class="project-card__link">
+                Source &rarr;
+              </a>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section__title {
+    font-family: var(--font-mono);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: var(--text);
+    margin-bottom: 3rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: var(--accent-glow);
+  }
+
+  .project-card__badge {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.15rem 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: fit-content;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-card__name {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .project-card__desc {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    flex: 1;
+  }
+
+  .project-card__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+  }
+
+  .project-card__links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .project-card__link {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .project-card__link:hover {
+    opacity: 0.7;
+  }
+</style>

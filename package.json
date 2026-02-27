@@ -1,0 +1,16 @@
+{
+  "name": "fernando-cv",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Personal CV/resume website built with Astro",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.17.1",
+    "@astrojs/sitemap": "^3.3.1"
+  }
+}

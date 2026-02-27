@@ -1,0 +1,163 @@
+---
+import experience from '../data/experience.json';
+---
+
+<section id="experience" class="section">
+  <div class="container">
+    <h2 class="section__title fade-up">
+      <span class="accent-text">#</span> Experience
+    </h2>
+
+    <div class="timeline">
+      {experience.map((job, i) => (
+        <div class="timeline__item fade-up" style={`animation-delay: ${i * 0.1}s`}>
+          <div class="timeline__marker" aria-hidden="true"></div>
+          <div class="timeline__content">
+            <div class="timeline__header">
+              <h3 class="timeline__role">{job.role}</h3>
+              <span class="timeline__period">{job.period}</span>
+            </div>
+            <p class="timeline__company">
+              {job.company} <span class="timeline__location">/ {job.location}</span>
+            </p>
+            <p class="timeline__desc">{job.description}</p>
+            {job.highlights.length > 0 && (
+              <ul class="timeline__highlights">
+                {job.highlights.map((h) => (
+                  <li>{h}</li>
+                ))}
+              </ul>
+            )}
+            <div class="timeline__tech">
+              {job.tech.map((t) => (
+                <span class="tag">{t}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section__title {
+    font-family: var(--font-mono);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: var(--text);
+    margin-bottom: 3rem;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline__item {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .timeline__item:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline__marker {
+    position: absolute;
+    left: -2rem;
+    top: 0.5rem;
+    width: 9px;
+    height: 9px;
+    background: var(--accent);
+    border-radius: 50%;
+    transform: translateX(-4px);
+    box-shadow: var(--accent-glow);
+  }
+
+  .timeline__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline__role {
+    font-family: var(--font-mono);
+    font-size: 1.125rem;
+    color: var(--text);
+  }
+
+  .timeline__period {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+  }
+
+  .timeline__company {
+    font-size: 1rem;
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline__location {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .timeline__desc {
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline__highlights {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
+  .timeline__highlights li {
+    color: var(--text-dim);
+    line-height: 1.6;
+    padding-left: 1.25rem;
+    position: relative;
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline__highlights li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  .timeline__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+  }
+</style>
