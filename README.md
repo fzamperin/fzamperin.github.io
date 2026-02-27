@@ -2,7 +2,7 @@
 
 Personal CV and blog site built with [Astro](https://astro.build), deployed to GitHub Pages.
 
-**Live**: [fzamperin.github.io/fernando-cv](https://fzamperin.github.io/fernando-cv/)
+**Live**: [fzamperin.github.io](https://fzamperin.github.io/)
 
 ## Stack
 
