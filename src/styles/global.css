@@ -356,65 +356,31 @@ body::after {
 
 /* --------------------------------------------------------------------------
    10. Scroll-Driven Fade-Up Animation
-   Uses CSS scroll-driven animations where supported (animation-timeline: view())
-   with a fallback for browsers that do not support it.
+   Uses IntersectionObserver (in BaseLayout.astro) to add .is-visible class.
+   Simple CSS transitions — reliable across all browsers.
    -------------------------------------------------------------------------- */
 
-/* --- Fallback approach: elements start hidden, animate in via class --- */
 .fade-up {
   opacity: 0;
   transform: translateY(24px);
-  animation: fadeUp 0.6s ease forwards;
-  animation-play-state: paused;
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-/* When the element is marked as visible (e.g. via IntersectionObserver adding
-   [data-visible] or .is-visible), play the animation. */
-.fade-up.is-visible,
-.fade-up[data-visible] {
-  animation-play-state: running;
+.fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Staggered delays for children — apply .fade-up-stagger to a parent
    and .fade-up to each child. */
-.fade-up-stagger > .fade-up:nth-child(1) { animation-delay: 0ms; }
-.fade-up-stagger > .fade-up:nth-child(2) { animation-delay: 80ms; }
-.fade-up-stagger > .fade-up:nth-child(3) { animation-delay: 160ms; }
-.fade-up-stagger > .fade-up:nth-child(4) { animation-delay: 240ms; }
-.fade-up-stagger > .fade-up:nth-child(5) { animation-delay: 320ms; }
-.fade-up-stagger > .fade-up:nth-child(6) { animation-delay: 400ms; }
-.fade-up-stagger > .fade-up:nth-child(7) { animation-delay: 480ms; }
-.fade-up-stagger > .fade-up:nth-child(8) { animation-delay: 560ms; }
-
-/* --- Progressive enhancement: CSS scroll-driven animations ---
-   Browsers that support animation-timeline: view() will use native scroll-driven
-   reveals, no JS required. The @supports block overrides the fallback above. */
-@supports (animation-timeline: view()) {
-  .fade-up {
-    opacity: 0;
-    transform: translateY(24px);
-    animation: fadeUp ease both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 100%;
-    animation-play-state: running;
-  }
-
-  /* Stagger is handled by animation-range offsets in the scroll-driven model */
-  .fade-up-stagger > .fade-up:nth-child(1) { animation-delay: 0ms; animation-range: entry 0% entry 80%; }
-  .fade-up-stagger > .fade-up:nth-child(2) { animation-delay: 0ms; animation-range: entry 5% entry 85%; }
-  .fade-up-stagger > .fade-up:nth-child(3) { animation-delay: 0ms; animation-range: entry 10% entry 90%; }
-  .fade-up-stagger > .fade-up:nth-child(4) { animation-delay: 0ms; animation-range: entry 15% entry 95%; }
-  .fade-up-stagger > .fade-up:nth-child(5) { animation-delay: 0ms; animation-range: entry 20% entry 100%; }
-  .fade-up-stagger > .fade-up:nth-child(6) { animation-delay: 0ms; animation-range: entry 25% entry 100%; }
-  .fade-up-stagger > .fade-up:nth-child(7) { animation-delay: 0ms; animation-range: entry 30% entry 100%; }
-  .fade-up-stagger > .fade-up:nth-child(8) { animation-delay: 0ms; animation-range: entry 35% entry 100%; }
-
-  /* No need for .is-visible or [data-visible] — scroll drives the animation */
-  .fade-up.is-visible,
-  .fade-up[data-visible] {
-    animation-play-state: running;
-  }
-}
+.fade-up-stagger > .fade-up:nth-child(1) { transition-delay: 0ms; }
+.fade-up-stagger > .fade-up:nth-child(2) { transition-delay: 80ms; }
+.fade-up-stagger > .fade-up:nth-child(3) { transition-delay: 160ms; }
+.fade-up-stagger > .fade-up:nth-child(4) { transition-delay: 240ms; }
+.fade-up-stagger > .fade-up:nth-child(5) { transition-delay: 320ms; }
+.fade-up-stagger > .fade-up:nth-child(6) { transition-delay: 400ms; }
+.fade-up-stagger > .fade-up:nth-child(7) { transition-delay: 480ms; }
+.fade-up-stagger > .fade-up:nth-child(8) { transition-delay: 560ms; }
 
 /* --------------------------------------------------------------------------
    11. Reduced Motion

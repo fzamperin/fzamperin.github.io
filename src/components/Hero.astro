@@ -226,7 +226,7 @@ const roles = [
    * through random cipher glyphs before resolving left-to-right into the
    * target string. A scanline sweeps across tracking the decode front.
    */
-
+  (function() {
   const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*<>{}[]|/\\~';
   const isMobile = window.innerWidth < 768;
   const SCRAMBLE_FPS = isMobile ? 80 : 50;     // slower on mobile
@@ -384,4 +384,5 @@ const roles = [
   }
 
   loop();
+  })();
 </script>
