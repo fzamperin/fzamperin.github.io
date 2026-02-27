@@ -8,9 +8,10 @@ interface Props {
   image?: string;
   url?: string;
   type?: string;
+  datePublished?: string;
 }
 
-const { title, description, image, url, type } = Astro.props;
+const { title, description, image, url, type, datePublished } = Astro.props;
 ---
 
 <!doctype html>
@@ -39,8 +40,11 @@ const { title, description, image, url, type } = Astro.props;
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
 
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="Fernando Penna — Blog" href={`${import.meta.env.BASE_URL}rss.xml`} />
+
     <!-- SEO -->
-    <SEO title={title} description={description} image={image} url={url} type={type} />
+    <SEO title={title} description={description} image={image} url={url} type={type} datePublished={datePublished} />
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>

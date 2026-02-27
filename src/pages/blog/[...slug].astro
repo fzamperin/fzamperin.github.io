@@ -26,6 +26,7 @@ const readingTime = Math.max(1, Math.ceil(words / 200));
   title={`${post.data.title} | Fernando Penna`}
   description={post.data.description}
   type="article"
+  datePublished={post.data.date.toISOString()}
 >
   <Nav />
   <main id="main-content" class="post-page">

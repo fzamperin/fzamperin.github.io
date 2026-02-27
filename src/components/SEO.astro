@@ -5,6 +5,7 @@ interface Props {
   image?: string;
   url?: string;
   type?: string;
+  datePublished?: string;
 }
 
 import social from '../data/social.json';
@@ -20,6 +21,7 @@ const {
   image = `${siteUrl}${basePath}og-image.png`,
   url = `${siteUrl}${basePath}`,
   type = 'website',
+  datePublished,
 } = Astro.props;
 
 const canonicalUrl = new URL(url, siteUrl).href;
@@ -53,6 +55,19 @@ const articleJsonLd = type === 'article' ? JSON.stringify({
   image: image,
   url: canonicalUrl,
   author: { '@type': 'Person', name: 'Fernando Penna' },
+  publisher: { '@type': 'Person', name: 'Fernando Penna' },
+  ...(datePublished ? { datePublished, dateModified: datePublished } : {}),
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+}) : null;
+
+const breadcrumbJsonLd = type === 'article' ? JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}${basePath}` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}${basePath}blog/` },
+    { '@type': 'ListItem', position: 3, name: title },
+  ],
 }) : null;
 ---
 
@@ -77,3 +92,4 @@ const articleJsonLd = type === 'article' ? JSON.stringify({
 
 <script type="application/ld+json" set:html={personJsonLd}></script>
 {articleJsonLd && <script type="application/ld+json" set:html={articleJsonLd}></script>}
+{breadcrumbJsonLd && <script type="application/ld+json" set:html={breadcrumbJsonLd}></script>}
