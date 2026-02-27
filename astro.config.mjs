@@ -4,6 +4,6 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://fzamperin.github.io',
+  site: 'https://zamper.dev.br',
   integrations: [sitemap()],
 });
