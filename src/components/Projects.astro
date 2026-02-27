@@ -38,16 +38,9 @@ import projects from '../data/projects.json';
 </section>
 
 <style>
-  .section__title {
-    font-family: var(--font-mono);
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    color: var(--text);
-    margin-bottom: 3rem;
-  }
-
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
     gap: 1.5rem;
   }
 
@@ -101,16 +94,6 @@ import projects from '../data/projects.json';
     margin-bottom: 1.25rem;
   }
 
-  .tag {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--accent);
-    background: var(--accent-dim);
-    padding: 0.25rem 0.75rem;
-    border: 1px solid var(--accent);
-    border-radius: 2px;
-  }
-
   .project-card__links {
     display: flex;
     gap: 1.5rem;
@@ -121,10 +104,12 @@ import projects from '../data/projects.json';
     font-size: 0.85rem;
     color: var(--accent);
     text-decoration: none;
-    transition: opacity 0.2s;
+    padding: 0.25rem 0;
   }
 
-  .project-card__link:hover {
-    opacity: 0.7;
+  .project-card__link:hover,
+  .project-card__link:active {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 </style>

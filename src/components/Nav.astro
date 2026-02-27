@@ -16,13 +16,13 @@ const links = [
       <span class="accent-text">&lt;</span>FZ<span class="accent-text">/&gt;</span>
     </a>
 
-    <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+    <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
       <span class="nav__toggle-bar"></span>
       <span class="nav__toggle-bar"></span>
       <span class="nav__toggle-bar"></span>
     </button>
 
-    <ul class="nav__links" role="list">
+    <ul class="nav__links" role="list" id="nav-menu">
       {links.map((link) => (
         <li>
           <a href={link.href} class="nav__link">{link.label}</a>
@@ -104,7 +104,11 @@ const links = [
     background: none;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    align-items: center;
   }
 
   .nav__toggle-bar {
@@ -135,8 +139,24 @@ const links = [
       transition: right 0.3s ease;
     }
 
+    .nav__links::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 15, 0.6);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: -1;
+    }
+
     .nav__links.open {
       right: 0;
+    }
+
+    .nav__links.open::before {
+      opacity: 1;
+      visibility: visible;
     }
 
     .nav__link {
@@ -151,17 +171,37 @@ const links = [
 <script>
   const toggle = document.querySelector('.nav__toggle');
   const links = document.querySelector('.nav__links');
+  const navLinks = document.querySelectorAll('.nav__link');
+
+  function closeMenu() {
+    links?.classList.remove('open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  function openMenu() {
+    links?.classList.add('open');
+    toggle?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    const firstLink = links?.querySelector('.nav__link');
+    if (firstLink instanceof HTMLElement) firstLink.focus();
+  }
 
   toggle?.addEventListener('click', () => {
-    const isOpen = links?.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(isOpen));
+    const isOpen = links?.classList.contains('open');
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && links?.classList.contains('open')) {
+      closeMenu();
+      if (toggle instanceof HTMLElement) toggle.focus();
+    }
   });
 
   // Close mobile menu on link click
-  document.querySelectorAll('.nav__link').forEach((link) => {
-    link.addEventListener('click', () => {
-      links?.classList.remove('open');
-      toggle?.setAttribute('aria-expanded', 'false');
-    });
+  navLinks.forEach((link) => {
+    link.addEventListener('click', closeMenu);
   });
 </script>

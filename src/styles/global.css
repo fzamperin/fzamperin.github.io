@@ -272,6 +272,26 @@ body::after {
   color: var(--accent);
 }
 
+/* Skip-to-content link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
 /* Screen-reader only (accessibility helper) */
 .sr-only {
   position: absolute;
@@ -286,7 +306,40 @@ body::after {
 }
 
 /* --------------------------------------------------------------------------
-   9. Keyframe Animations
+   9. Shared Component Styles
+   -------------------------------------------------------------------------- */
+
+/* Section title — used across all section components */
+.section__title {
+  font-family: var(--font-mono);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: var(--text);
+  margin-bottom: 3rem;
+}
+
+/* Tech tag */
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+}
+
+/* Small tag (blog posts) */
+.tag-sm {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  background: var(--surface-light);
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--border);
+}
+
+/* --------------------------------------------------------------------------
+   10. Keyframe Animations
    -------------------------------------------------------------------------- */
 
 /* Fade up — used by the .fade-up utility */
@@ -298,16 +351,6 @@ body::after {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* Subtle glow pulse for accent elements */
-@keyframes glowPulse {
-  0%, 100% {
-    box-shadow: 0 0 8px var(--accent-dim);
-  }
-  50% {
-    box-shadow: var(--accent-glow);
   }
 }
 

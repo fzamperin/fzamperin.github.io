@@ -236,7 +236,7 @@ const roles = [
   const el = document.getElementById('decode-role');
   const scanline = document.getElementById('decode-scanline');
   const cursor = document.getElementById('decode-cursor');
-  if (!el || !scanline || !cursor) throw new Error('Missing decode elements');
+  if (!el || !scanline || !cursor) return;
 
   let currentIndex = 0;
   let prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -360,7 +360,7 @@ const roles = [
 
     await sleep(HOLD_DURATION);
 
-    while (true) {
+    while (el.isConnected) {
       currentIndex = (currentIndex + 1) % roles.length;
       await decode(roles[currentIndex]);
       await sleep(HOLD_DURATION);

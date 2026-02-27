@@ -4,7 +4,7 @@ import skills from '../data/skills.json';
 const categories = Object.entries(skills) as [string, string[]][];
 ---
 
-<section id="skills" class="section">
+<section id="skills" class="section skills-section">
   <div class="container">
     <h2 class="section__title fade-up">
       <span class="accent-text">#</span> Skills
@@ -26,21 +26,20 @@ const categories = Object.entries(skills) as [string, string[]][];
 </section>
 
 <style>
-  .section__title {
-    font-family: var(--font-mono);
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    color: var(--text);
-    margin-bottom: 3rem;
+  .skills-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
   }
 
   .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: 2rem;
   }
 
   .skills-group {
-    background: var(--surface);
+    background: var(--bg);
     border: 1px solid var(--border);
     padding: 1.5rem;
   }

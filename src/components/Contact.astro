@@ -3,7 +3,7 @@ import social from '../data/social.json';
 import SocialIcon from './SocialIcon.astro';
 ---
 
-<section id="contact" class="section">
+<section id="contact" class="section contact-section">
   <div class="container">
     <h2 class="section__title fade-up">
       <span class="accent-text">#</span> Contact
@@ -33,11 +33,11 @@ import SocialIcon from './SocialIcon.astro';
 </section>
 
 <style>
-  .section__title {
-    font-family: var(--font-mono);
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    color: var(--text);
-    margin-bottom: 3rem;
+  .contact-section {
+    background:
+      linear-gradient(135deg, rgba(57, 255, 20, 0.03) 0%, transparent 60%),
+      var(--bg);
+    border-top: 1px solid var(--accent-dim);
   }
 
   .contact__content {
