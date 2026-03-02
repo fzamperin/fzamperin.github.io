@@ -1,6 +1,7 @@
 [
   {
     "company": "Blackthorn.io - Salesforce Apps",
+    "companyUrl": "https://blackthorn.io/salesforce-event-management-and-registration/",
     "role": "Senior Full Stack Engineer",
     "period": "Aug 2023 - Present",
     "location": "Remote",
@@ -50,6 +51,7 @@
   },
   {
     "company": "Suno - Investments Industry",
+    "companyUrl": "https://www.suno.com.br/research/",
     "role": "Software Specialist",
     "period": "Jun 2021 - May 2023",
     "location": "São Paulo, Brazil",
@@ -75,6 +77,7 @@
   },
   {
     "company": "Ingresse - Events Ticket Industry",
+    "companyUrl": "https://ingresse.com/",
     "role": "Tech Manager",
     "period": "Feb 2022 - Aug 2022",
     "location": "São Paulo, Brazil",

@@ -18,7 +18,10 @@ import experience from '../data/experience.json';
               <span class="timeline__period">{job.period}</span>
             </div>
             <p class="timeline__company">
-              {job.company} <span class="timeline__location">/ {job.location}</span>
+              {job.companyUrl
+                ? <a class="timeline__company-link" href={job.companyUrl} target="_blank" rel="noopener noreferrer" aria-label={`${job.company} (opens in new tab)`}>{job.company}</a>
+                : job.company
+              } <span class="timeline__location">/ {job.location}</span>
             </p>
             <p class="timeline__desc">{job.description}</p>
             {job.highlights.length > 0 && (
@@ -107,6 +110,23 @@ import experience from '../data/experience.json';
   .timeline__location {
     font-size: 0.85rem;
     color: var(--text-dim);
+  }
+
+  .timeline__company-link {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    transition: color 0.2s;
+  }
+
+  .timeline__company-link:hover {
+    color: var(--accent);
+  }
+
+  .timeline__company-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 
   .timeline__desc {
