@@ -6,4 +6,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://zamper.dev.br',
   integrations: [sitemap()],
+  build: {
+    inlineStylesheets: 'always',
+  },
 });
