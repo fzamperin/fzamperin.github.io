@@ -5,14 +5,17 @@ import Footer from '../../components/Footer.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map((post) => ({
+  const posts = (await getCollection('blog'))
+    .filter((p) => !p.data.draft)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+  return posts.map((post, i) => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post, prev: posts[i + 1] ?? null, next: posts[i - 1] ?? null },
   }));
 }
 
-const { post } = Astro.props;
+const { post, prev, next } = Astro.props;
 const { Content } = await render(post);
 
 const basePath = import.meta.env.BASE_URL;
@@ -55,6 +58,20 @@ const readingTime = Math.max(1, Math.ceil(words / 200));
 
       <footer class="post-page__footer fade-up">
         <a href={`${basePath}blog/`} class="post-page__back">&larr; Back to all posts</a>
+        <nav class="post-page__nav" aria-label="Post navigation">
+          {prev && (
+            <a href={`${basePath}blog/${prev.id}/`} class="post-page__nav-link post-page__nav-link--prev">
+              <span class="post-page__nav-label">&larr; Previous</span>
+              <span class="post-page__nav-title">{prev.data.title}</span>
+            </a>
+          )}
+          {next && (
+            <a href={`${basePath}blog/${next.id}/`} class="post-page__nav-link post-page__nav-link--next">
+              <span class="post-page__nav-label">Next &rarr;</span>
+              <span class="post-page__nav-title">{next.data.title}</span>
+            </a>
+          )}
+        </nav>
       </footer>
     </article>
   </main>
@@ -204,6 +221,55 @@ const readingTime = Math.max(1, Math.ceil(words / 200));
     padding-top: 2rem;
     padding-bottom: 2rem;
     border-top: 1px solid var(--border);
+  }
+
+  .post-page__nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .post-page__nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-decoration: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .post-page__nav-link:hover {
+    border-color: var(--accent);
+    box-shadow: var(--accent-glow);
+  }
+
+  .post-page__nav-link--next {
+    text-align: right;
+    grid-column: 2;
+  }
+
+  .post-page__nav-link--prev:only-child {
+    grid-column: 1;
+  }
+
+  .post-page__nav-link--next:only-child {
+    grid-column: 2;
+  }
+
+  .post-page__nav-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+  }
+
+  .post-page__nav-title {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.4;
   }
 
   .post-page__content {

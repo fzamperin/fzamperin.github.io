@@ -100,6 +100,14 @@ const links = [
     width: 100%;
   }
 
+  .nav__link.is-active {
+    color: var(--accent);
+  }
+
+  .nav__link.is-active::after {
+    width: 100%;
+  }
+
   .nav__toggle {
     display: none;
     flex-direction: column;
@@ -220,4 +228,24 @@ const links = [
   navLinks.forEach((link) => {
     link.addEventListener('click', closeMenu);
   });
+
+  // Scroll spy — only meaningful on the homepage where sections exist
+  const sections = document.querySelectorAll('section[id]');
+  if (sections.length > 0) {
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            navLinks.forEach((link) => {
+              const href = link.getAttribute('href') ?? '';
+              const isActive = href.endsWith(`#${entry.target.id}`);
+              link.classList.toggle('is-active', isActive);
+            });
+          }
+        });
+      },
+      { threshold: 0, rootMargin: '-30% 0px -60% 0px' }
+    );
+    sections.forEach((s) => sectionObserver.observe(s));
+  }
 </script>

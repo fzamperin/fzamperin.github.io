@@ -36,6 +36,35 @@ const { title, description, image, url, type, datePublished } = Astro.props;
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <slot />
+    <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">&#8593;</button>
+
+    <style>
+      .scroll-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 40px;
+        height: 40px;
+        background: var(--surface);
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        font-size: 1.1rem;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s, background 0.2s, box-shadow 0.2s;
+        z-index: 90;
+      }
+      .scroll-top.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+      .scroll-top:hover {
+        background: var(--accent);
+        color: var(--bg);
+        box-shadow: var(--accent-glow);
+      }
+    </style>
 
     <!-- Scroll animation observer -->
     <script>
@@ -52,6 +81,15 @@ const { title, description, image, url, type, datePublished } = Astro.props;
       );
 
       document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+
+      // Scroll-to-top button
+      const scrollBtn = document.getElementById('scroll-top');
+      window.addEventListener('scroll', () => {
+        scrollBtn?.classList.toggle('visible', window.scrollY > 400);
+      }, { passive: true });
+      scrollBtn?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     </script>
   </body>
 </html>
