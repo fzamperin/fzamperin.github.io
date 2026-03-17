@@ -3,7 +3,6 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
-  url?: string;
   type?: string;
   datePublished?: string;
 }
@@ -19,12 +18,11 @@ const {
   title = siteTitle,
   description = siteDescription,
   image = `${siteUrl}${basePath}og-image.png`,
-  url = `${siteUrl}${basePath}`,
   type = 'website',
   datePublished,
 } = Astro.props;
 
-const canonicalUrl = new URL(url, siteUrl).href;
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 
 const sameAs = social
   .map((s: { url: string }) => s.url)
