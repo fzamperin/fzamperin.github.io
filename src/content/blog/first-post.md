@@ -1,5 +1,5 @@
 ---
-title: "Hello World: Building My Personal Site with Astro"
+title: "Building My Personal Site with Astro"
 date: 2026-02-15
 description: "A quick look at why I chose Astro to build my personal CV site, and the design decisions behind the dark & techy aesthetic."
 tags: ["astro", "webdev", "design"]

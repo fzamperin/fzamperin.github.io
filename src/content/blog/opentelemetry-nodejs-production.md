@@ -1,7 +1,7 @@
 ---
-title: "OpenTelemetry in a Node.js Production App: What Actually Works"
+title: "OpenTelemetry in Node.js: A Practical Guide"
 date: 2026-03-12
-description: "A practical guide to adding distributed tracing, metrics, and structured logs to a Node.js service using OpenTelemetry — based on real instrumentation work across production infrastructure."
+description: "A practical guide to distributed tracing, metrics, and structured logs in Node.js using OpenTelemetry — based on real production instrumentation."
 tags: ["node.js", "observability", "opentelemetry", "devops", "kubernetes"]
 draft: false
 ---

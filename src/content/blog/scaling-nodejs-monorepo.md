@@ -1,7 +1,7 @@
 ---
-title: "Scaling a Node.js Monorepo: Lessons from Building Suno's Microservices Platform"
+title: "Scaling a Node.js Monorepo at Suno"
 date: 2026-02-27
-description: "How we structured a 38-package monorepo with Lerna, NX, and Yarn Workspaces to power a fintech platform serving 100k+ users — from domain-driven design to automated Kubernetes deployments."
+description: "How we structured a 38-package monorepo with Lerna, NX, and Yarn Workspaces to power a fintech platform serving 100k+ users."
 tags: ["node.js", "monorepo", "kubernetes", "devops", "architecture"]
 draft: false
 ---
